@@ -35,4 +35,19 @@
     chdir: $HOME/.dotfiles/
     cmd: "stow zprofile"
 
+- name: Clone tmux sample config
+  git:
+    repo: https://github.com/gpakosz/.tmux.git
+    dest: "/tmp/.tmux"
+    clone: true
+      
+- name: link tmux 
+  shell:
+    chdir: "/tmp/.tmux"
+    cmd: "ln -s -f /tmp/.tmux/.tmux.conf $HOME/.tmux.conf"
 
+
+- name: Stow tmux
+  shell:
+    chdir: $HOME/.dotfiles/
+    cmd: "stow tmux"
