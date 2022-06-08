@@ -1,9 +1,0 @@
----
-- hosts: localhost
-  connection: local
-  become: true
-
-  tasks:
-  - name: install neovim
-    package:
-      name: neovim

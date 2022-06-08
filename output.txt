@@ -1,0 +1,2 @@
+ansible_env.HOME
+/home/zach

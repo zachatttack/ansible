@@ -1,0 +1,40 @@
+---
+- name: Clone nvim repository
+  git:
+    repo: https://github.com/neovim/neovim
+    dest: "{{ ansible_env.HOME }}/src/nvim"
+    clone: true
+    version: "stable"
+  register: nvim
+
+- name: Install nvim build dependencies
+  become: true
+  apt:
+    name:
+      - ninja-build
+      - gettext
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+    state: present
+
+- name: Build nvim release version
+  become: true
+  make:
+    chdir: "{{ ansible_env.HOME }}/src/nvim"
+    target: install
+    params:
+      CMAKE_BUILD_TYPE: RelWithDebInfo
+  when: nvim.changed
+
+- name: Clone neovim config
+  git:
+    repo: https://github.com/zachatttack/nvim_config
+    dest: "{{ ansible_env.HOME }}/.config/nvim"
+    clone: true
