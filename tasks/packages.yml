@@ -6,3 +6,7 @@
     state: latest
     update_cache: no
   loop: "{{ packages.common }}"
+
+- name: Install cht.sh
+  shell:
+    cmd: curl -s https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh && sudo chmod +x /usr/local/bin/cht.sh
