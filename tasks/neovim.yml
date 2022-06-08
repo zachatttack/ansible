@@ -30,6 +30,7 @@
     chdir: "{{ ansible_env.HOME }}/src/nvim"
     target: install
     params:
+      NUM_THREADS: 4
       CMAKE_BUILD_TYPE: RelWithDebInfo
   when: nvim.changed
 

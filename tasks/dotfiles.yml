@@ -38,13 +38,13 @@
 - name: Clone tmux sample config
   git:
     repo: https://github.com/gpakosz/.tmux.git
-    dest: "/tmp/.tmux"
+    dest: "$HOME/.tmux"
     clone: true
       
 - name: link tmux 
   shell:
-    chdir: "/tmp/.tmux"
-    cmd: "ln -s -f /tmp/.tmux/.tmux.conf $HOME/.tmux.conf"
+    chdir: "$HOME/.tmux"
+    cmd: "ln -s -f $HOME/.tmux/.tmux.conf $HOME/.tmux.conf"
 
 
 - name: Stow tmux
