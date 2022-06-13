@@ -36,6 +36,6 @@
 
 - name: Clone neovim config
   git:
-    repo: git@github.com:zachatttack/nvim_config.git
+    repo: https://github.com/zachatttack/nvim_config
     dest: "{{ ansible_env.HOME }}/.config/nvim"
     clone: true

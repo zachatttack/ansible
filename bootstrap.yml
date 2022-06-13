@@ -6,7 +6,7 @@
     - vars/packages.yml
 
   tasks:
-    - import_tasks: tasks/ssh.yml
+    #- import_tasks: tasks/ssh.yml
     - import_tasks: tasks/packages.yml
     - import_tasks: tasks/neovim.yml
     - import_tasks: tasks/dotfiles.yml

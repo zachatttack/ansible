@@ -1,34 +1,23 @@
 ---
 - name: Clone dotfiles
   git:
-    repo: git@github.com:zachatttack/.dotfiles.git
+    repo: https://github.com/zachatttack/.dotfiles
     dest: "{{ ansible_env.HOME }}/.dotfiles"
     clone: true
 
-- name: Download oh my zsh install script
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: /tmp/ohmyzsh.sh
-    mode: 0700
-
-- name: delete .ohmyzsh
-  ansible.builtin.file:
-    path: /home/zach/.oh-my-zsh
-    state: absent
-
-- name: Install oh my zsh
+- name: zsh submodules 
   shell:
-    cmd: /tmp/ohmyzsh.sh
-
-- name: delete .zshrc
-  ansible.builtin.file:
-    path: $HOME/.zshrc
-    state: absent
+    chdir: $HOME/.dotfiles/
+    cmd: "git submodule update --init"
 
 - name: Stow zsh
   shell:
     chdir: $HOME/.dotfiles/
     cmd: "stow zsh"
+
+- name: Install starship.rs
+  shell:
+    cmd: curl -sS https://starship.rs/install.sh | sh
 
 - name: Stow zprofile
   shell:
@@ -45,7 +34,6 @@
   shell:
     chdir: "$HOME/.tmux"
     cmd: "ln -s -f $HOME/.tmux/.tmux.conf $HOME/.tmux.conf"
-
 
 - name: Stow tmux
   shell:
