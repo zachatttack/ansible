@@ -1,11 +1,17 @@
 ---
+- name: Remove neovim
+  become: true
+  shell: rm -rf /home/zach/src/nvim
+  tags:
+    - neovim
+
 - name: Clone nvim repository
   git:
-    repo: https://github.com/neovim/neovim
+    repo: "https://github.com/neovim/neovim.git"
     dest: "{{ ansible_env.HOME }}/src/nvim"
-    clone: true
-    version: "stable"
   register: nvim
+  tags:
+    - neovim
 
 - name: Install nvim build dependencies
   become: true
@@ -23,6 +29,8 @@
       - unzip
       - curl
     state: present
+  tags:
+    - neovim
 
 - name: Build nvim release version
   become: true
@@ -30,9 +38,11 @@
     chdir: "{{ ansible_env.HOME }}/src/nvim"
     target: install
     params:
-      NUM_THREADS: 4
+      NUM_THREADS: 8
       CMAKE_BUILD_TYPE: RelWithDebInfo
   when: nvim.changed
+  tags:
+    - neovim
 
 - name: Clone neovim config
   git:
